@@ -6,7 +6,7 @@ require 'route_translator/extensions'
 require 'route_translator/translator'
 require 'route_translator/host'
 require 'route_translator/host_path_consistency_lambdas'
-require 'route_translator/locale_sanitizer'
+# require 'route_translator/locale_sanitizer'
 
 module RouteTranslator
   extend RouteTranslator::Host
@@ -23,7 +23,7 @@ module RouteTranslator
 
     def resolve_host_locale_config_conflicts
       @config.force_locale                        = false
-      @config.hide_locale                         = false
+      @config.hide_locale                         = true
       @config.generate_unlocalized_routes         = false
       @config.generate_unnamed_unlocalized_routes = false
     end
@@ -36,7 +36,7 @@ module RouteTranslator
     @config.available_locales                   ||= []
     @config.disable_fallback                    ||= false
     @config.force_locale                        ||= false
-    @config.hide_locale                         ||= false
+    @config.hide_locale                         ||= true
     @config.host_locales                        ||= ActiveSupport::OrderedHash.new
     @config.generate_unlocalized_routes         ||= false
     @config.generate_unnamed_unlocalized_routes ||= false

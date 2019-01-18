@@ -26,7 +26,7 @@ module RouteTranslator
         translated_options = options.dup
 
         if translated_options.exclude?(RouteTranslator.locale_param_key)
-          translated_options[RouteTranslator.locale_param_key] = RouteTranslator::LocaleSanitizer.sanitize(locale)
+          translated_options[RouteTranslator.locale_param_key] = locale.to_s
         end
 
         translated_options
@@ -53,7 +53,7 @@ module RouteTranslator
 
     def available_locales
       locales = RouteTranslator.available_locales
-      locales.concat(RouteTranslator.native_locales) if RouteTranslator.native_locales.present?
+      # locales.concat(RouteTranslator.native_locales) if RouteTranslator.native_locales.present?
       # Make sure the default locale is translated in last place to avoid
       # problems with wildcards when default locale is omitted in paths. The
       # default routes will catch all paths like wildcard if it is translated first.
@@ -77,20 +77,18 @@ module RouteTranslator
     end
 
     def route_name_for(args, old_name, suffix, kaller)
-        args_hash          = args.detect{|arg| arg.is_a?(Hash)}
-        args_locale = RouteTranslator.config&.host_locales && args_hash && args_hash[:locale]
-        current_locale_name = I18n.locale.to_s.underscore
-        locale = if args_locale
-                   args_locale.to_s.underscore
-                 elsif kaller.respond_to?("#{old_name}_native_#{current_locale_name}_#{suffix}")
-                  "native_#{current_locale_name}"
-                 elsif kaller.respond_to?("#{old_name}_#{current_locale_name}_#{suffix}")
-                   current_locale_name
-                 else
-                   I18n.default_locale.to_s.underscore
-                 end
+      args_locale         = locale_from_args(args)
+      current_locale_name = I18n.locale.to_s.underscore
 
-        "#{old_name}_#{locale}_#{suffix}"
+      locale = if args_locale
+                 args_locale.to_s.underscore
+               elsif kaller.respond_to?("#{old_name}_#{current_locale_name}_#{suffix}")
+                 current_locale_name
+               else
+                 I18n.default_locale.to_s.underscore
+               end
+
+      "#{old_name}_#{locale}_#{suffix}"
     end
   end
 end

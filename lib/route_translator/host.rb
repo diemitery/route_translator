@@ -11,13 +11,13 @@ module RouteTranslator
       end
     end
 
-    def native_locale?(locale)
-      locale.to_s.match(/native_/).present?
-    end
-
-    def native_locales
-      config.host_locales.values.map { |locale| :"native_#{locale}" }
-    end
+    # def native_locale?(locale)
+    #   locale.to_s.match(/native_/).present?
+    # end
+    #
+    # def native_locales
+    #   config.host_locales.values.map { |locale| :"native_#{locale}" }
+    # end
 
     module_function
 
