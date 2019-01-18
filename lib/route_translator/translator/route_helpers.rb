@@ -35,11 +35,13 @@ module RouteTranslator
           Rails.logger.debug 'heya1'
           Rails.logger.debug new_helper_name
           Rails.logger.debug 'heya2'
-          Rails.logger.debug helper_list
+          # Rails.logger.debug helper_list
           Rails.logger.debug 'heya3'
-          Rails.logger.debug Translator.route_name_for(args, old_name, suffix, self)
+          # Rails.logger.debug Translator.route_name_for(args, old_name, suffix, self)
 
           helper_container.__send__(:define_method, new_helper_name) do |*args|
+            rails.logger.debug 'testink'
+            Rails.logger.debug Translator.route_name_for(args, old_name, suffix, self)
             __send__(Translator.route_name_for(args, old_name, suffix, self), *args)
           end
 
