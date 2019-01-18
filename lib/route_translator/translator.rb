@@ -77,20 +77,21 @@ module RouteTranslator
     end
 
     def route_name_for(args, old_name, suffix, kaller)
-      args_locale         = locale_from_args(args)
-      current_locale_name = I18n.locale.to_s.underscore
+        args_hash          = args.detect{|arg| arg.is_a?(Hash)}
+        args_locale = host_locales_option? && args_hash && args_hash[:locale]
+        current_locale_name = I18n.locale.to_s.underscore
 
-      locale = if args_locale
-                 args_locale.to_s.underscore
-               elsif kaller.respond_to?("#{old_name}_native_#{current_locale_name}_#{suffix}")
-                 "native_#{current_locale_name}"
-               elsif kaller.respond_to?("#{old_name}_#{current_locale_name}_#{suffix}")
-                 current_locale_name
-               else
-                 I18n.default_locale.to_s.underscore
-               end
+        locale = if args_locale
+                   args_locale.to_s.underscore
+                 elsif kaller.respond_to?("#{old_name}_native_#{current_locale_name}_#{suffix}")
+                  "native_#{current_locale_name}"
+                 elsif kaller.respond_to?("#{old_name}_#{current_locale_name}_#{suffix}")
+                   current_locale_name
+                 else
+                   I18n.default_locale.to_s.underscore
+                 end
 
-      "#{old_name}_#{locale}_#{suffix}"
+        "#{old_name}_#{locale}_#{suffix}"
     end
   end
 end
