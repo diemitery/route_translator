@@ -80,16 +80,6 @@ module RouteTranslator
         args_hash          = args.detect{|arg| arg.is_a?(Hash)}
         args_locale = RouteTranslator.config&.host_locales && args_hash && args_hash[:locale]
         current_locale_name = I18n.locale.to_s.underscore
-        puts 'heya'
-        puts args
-        puts old_name
-        puts suffix
-        puts kaller
-        Rails.logger.debug 'heya'
-        Rails.logger.debug args
-        Rails.logger.debug old_name
-        Rails.logger.debug suffix
-        Rails.logger.debug kaller
         locale = if args_locale
                    args_locale.to_s.underscore
                  elsif kaller.respond_to?("#{old_name}_native_#{current_locale_name}_#{suffix}")
