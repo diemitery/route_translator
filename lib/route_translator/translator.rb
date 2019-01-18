@@ -80,7 +80,11 @@ module RouteTranslator
         args_hash          = args.detect{|arg| arg.is_a?(Hash)}
         args_locale = host_locales_option? && args_hash && args_hash[:locale]
         current_locale_name = I18n.locale.to_s.underscore
-
+        puts 'heya'
+        puts args
+        puts old_name
+        puts suffix
+        puts kaller
         locale = if args_locale
                    args_locale.to_s.underscore
                  elsif kaller.respond_to?("#{old_name}_native_#{current_locale_name}_#{suffix}")
