@@ -52,8 +52,6 @@ module RouteTranslator
         end
 
         joined_segments = translated_segments.join('/')
-        Rails.logger.debug 'usrs?'
-        Rails.logger.debug "/#{joined_segments}#{final_optional_segments}".gsub(%r{\/\(\/}, '(/')
         "/#{joined_segments}#{final_optional_segments}".gsub(%r{\/\(\/}, '(/')
       end
     end
