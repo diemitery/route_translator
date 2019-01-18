@@ -6,7 +6,7 @@ require 'route_translator/extensions'
 require 'route_translator/translator'
 require 'route_translator/host'
 require 'route_translator/host_path_consistency_lambdas'
-# require 'route_translator/locale_sanitizer'
+require 'route_translator/locale_sanitizer'
 
 module RouteTranslator
   extend RouteTranslator::Host
