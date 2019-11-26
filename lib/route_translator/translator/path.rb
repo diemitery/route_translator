@@ -9,8 +9,7 @@ module RouteTranslator
         private
 
         def display_locale?(locale)
-          !RouteTranslator.config.hide_locale && !RouteTranslator.native_locale?(locale) &&
-            (!default_locale?(locale) || config_requires_locale?)
+          !RouteTranslator.config.hide_locale && (!default_locale?(locale) || config_requires_locale?)
         end
 
         def config_requires_locale?
@@ -53,7 +52,6 @@ module RouteTranslator
         end
 
         joined_segments = translated_segments.join('/')
-
         "/#{joined_segments}#{final_optional_segments}".gsub(%r{\/\(\/}, '(/')
       end
     end

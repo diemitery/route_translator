@@ -5,7 +5,7 @@ module RouteTranslator
     BOOLEAN_OPTIONS = {
       disable_fallback:                    false,
       force_locale:                        false,
-      hide_locale:                         false,
+      hide_locale:                         true,
       generate_unlocalized_routes:         false,
       generate_unnamed_unlocalized_routes: false
     }.freeze

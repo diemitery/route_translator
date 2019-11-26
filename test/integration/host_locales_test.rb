@@ -15,6 +15,18 @@ class HostLocalesTest < ActionDispatch::IntegrationTest
     Rails.application.reload_routes!
   end
 
+  def test_prefixed_path
+  # prefixed es route on es com
+  host! 'www.testapp.es'
+  get '/es/native'
+  assert_response :not_found
+
+  # prefixed ru route on ru com
+  host! 'ru.testapp.com'
+  get '/ru/native'
+  assert_response :not_found
+end
+
   def test_root_path
     # root of es com
     host! 'www.testapp.es'

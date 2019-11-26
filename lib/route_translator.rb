@@ -11,7 +11,7 @@ require 'route_translator/locale_sanitizer'
 module RouteTranslator
   extend RouteTranslator::Host
 
-  TRANSLATABLE_SEGMENT = /^([-_a-zA-Z0-9]+)(\()?/
+  TRANSLATABLE_SEGMENT = /^([-_a-zA-Z0-9]+)(\()?/.freeze
 
   Configuration = Struct.new(:available_locales, :disable_fallback, :force_locale,
                              :hide_locale, :host_locales, :generate_unlocalized_routes,
@@ -23,7 +23,7 @@ module RouteTranslator
 
     def resolve_host_locale_config_conflicts
       @config.force_locale                        = false
-      @config.hide_locale                         = false
+      @config.hide_locale                         = true
       @config.generate_unlocalized_routes         = false
       @config.generate_unnamed_unlocalized_routes = false
     end
@@ -36,7 +36,7 @@ module RouteTranslator
     @config.available_locales                   ||= []
     @config.disable_fallback                    ||= false
     @config.force_locale                        ||= false
-    @config.hide_locale                         ||= false
+    @config.hide_locale                         ||= true
     @config.host_locales                        ||= ActiveSupport::OrderedHash.new
     @config.generate_unlocalized_routes         ||= false
     @config.generate_unnamed_unlocalized_routes ||= false
